@@ -1,6 +1,7 @@
 import discord
 import time
 from discord.ext import commands
+import fun_stuff
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -9,6 +10,10 @@ bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allow
 @bot.command(name="ping", aliases=["latency"])
 async def ping(ctx):
     await ctx.reply(f"Woah, the ping is `{str(round(bot.latency * 1000))}ms`.")
+
+@bot.command(name = "start_spamming")
+async def start_spamming(context):
+    await fun_stuff.spam(context.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
 
 @bot.event
 async def on_ready():
