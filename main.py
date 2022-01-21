@@ -9,4 +9,6 @@ bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allow
 async def ping(ctx):
     await ctx.reply(f"woah the ping is: {str(round(bot.latency * 1000))}ms")
 
-bot.run()
+token = open("token.txt", "r").read()
+
+bot.run(token)
