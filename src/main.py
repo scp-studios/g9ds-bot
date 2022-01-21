@@ -50,6 +50,7 @@ async def kick(ctx, member: discord.Member,*, reason = None):
 async def unban(ctx, id: int):
     member = await bot.fetch_user(id)
     await ctx.guild.unban(member)
+    await ctx.reply(f"unbanned {member}")
 
 @bot.command(name="help", aliases=["commands"])
 async def help(ctx: discord.ext.commands.Context):
