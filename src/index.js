@@ -8,12 +8,12 @@ DeployCommands.deployCommands()
 const bot = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES]})
 
 bot.commands = new Discord.Collection()
-const commandFiles = Filesystem.readdirSync("./commands").filter(file => file.endsWith(".js"))
+const commandFiles = Filesystem.readdirSync("./src/commands").filter(file => file.endsWith(".js"))
 
 for (const file of commandFiles)
 {
     const command = require(`./commands/${file}`)
-    bot.commands.set(command.data.name, command)
+    bot.commands.set(command.data.name, command);
 }
 
 bot.once("ready", () => {
@@ -21,13 +21,18 @@ bot.once("ready", () => {
 })
 
 bot.on("interactionCreate", async (interaction) => {
-    if (!interaction.isCommand()) {
-        return;
-    }
-    
-    if (interaction.commandName == "ping")
+    if (interaction.isCommand())
     {
-        interaction.reply("Super idol de xiao rong")
+        const command = bot.commands.get(interaction.commandName)
+        
+        if (!command) return;
+        
+        try {
+            await command.execute();
+        } catch (error) {
+            console.error(error);
+            interaction.reply("There was an error executing the command.")
+        }
     }
 })
 

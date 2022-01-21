@@ -3,15 +3,16 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId } = require('./config.json');
 const { token } = require("./token.json")
+const Filesystem = require("fs")
 
 function deployCommands() {
 	const commands = []
-	const commandFiles = Filesystem.readdirSync("./commands").filter(file => file.endsWith(".js"))
+	const commandFiles = Filesystem.readdirSync("./src/commands").filter(file => file.endsWith(".js"))
 	
 	for (const file of commandFiles)
 	{
 	    const command = require(`./commands/${file}`)
-	    bot.commands.set(command.data.name, command)
+	    commands.push(command.data.toJSON())
 	}
 	
 	const rest = new REST({ version: '9' }).setToken(token);
