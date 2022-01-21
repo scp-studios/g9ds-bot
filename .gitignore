@@ -129,5 +129,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
 src/token.json
+token.txt
+token.json
+__pycache__
