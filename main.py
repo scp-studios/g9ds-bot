@@ -2,6 +2,7 @@ import discord
 import time
 from discord.ext import commands
 import fun_stuff
+from discord.ext.commands import has_permissions
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -14,6 +15,15 @@ async def ping(ctx):
 @bot.command(name = "start_spamming")
 async def start_spamming(context):
     await fun_stuff.spam(context.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
+
+@bot.command(name="ban", aliases=["yeet"])
+@has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason = None):
+    try:
+        await member.ban(reason = reason)
+        await ctx.reply(f"yikes {member} was banned\nreason: {reason}")
+    except discord.errors.Forbidden:
+        await ctx.reply("i dont have permissions to ban that user")
 
 @bot.event
 async def on_ready():
