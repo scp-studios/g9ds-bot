@@ -15,8 +15,8 @@ async def ping(ctx):
     await ctx.reply(f"Woah, the ping is `{str(round(bot.latency * 1000))}ms`.")
 
 @bot.command(name = "start_spamming")
-async def start_spamming(context):
-    await fun_stuff.spam(context.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
+async def start_spamming(ctx):
+    await fun_stuff.spam(ctx.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
 
 @bot.command(name="ban", aliases=["yeet"])
 @has_permissions(ban_members=True)
@@ -45,6 +45,12 @@ async def kick(ctx, member: discord.Member,*, reason = None):
 async def unban(ctx, id: int):
     member = await bot.fetch_user(id)
     await ctx.guild.unban(member)
+
+@bot.command(name="help", aliases=["commands"])
+async def help(ctx):
+    embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
+    embed.add_field(name="g9 ", value="See the latency of the bot in milliseconds.")
 
 @bot.event
 async def on_ready():
