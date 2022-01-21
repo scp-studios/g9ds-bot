@@ -1,3 +1,3 @@
 # g9ds-bot
 The Grade 9 Discord Server Bot  
-ratio bozo dont care
+hello b
