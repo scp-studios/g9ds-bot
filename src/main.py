@@ -24,6 +24,10 @@ async def ban(ctx, member: discord.Member, *, reason = None):
         await ctx.reply(f"yikes {member} was banned\nreason: {reason}")
     except discord.errors.Forbidden:
         await ctx.reply("i dont have permissions to ban that user")
+    except discord.ext.commands.errors.MissingRequiredArgument:
+        await ctx.reply("You forgot a missing argument bozo")
+    except:
+        await ctx.reply("idk y but i cant ban that guy")
 
 @bot.event
 async def on_ready():
