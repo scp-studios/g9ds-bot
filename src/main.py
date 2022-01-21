@@ -52,10 +52,15 @@ async def unban(ctx, id: int):
     await ctx.guild.unban(member)
 
 @bot.command(name="help", aliases=["commands"])
-async def help(ctx):
+async def help(ctx: discord.ext.commands.Context):
     embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
-    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
-    embed.add_field(name="g9 ", value="See the latency of the bot in milliseconds.")
+    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.\n", inline = False)
+    embed.add_field(name="g9 start_spamming", value="Start spamming (you can't stop it).\n", inline = False)
+    embed.add_field(name="g9 kick <user>", value="Kick someone out of the server.\n", inline = False)
+    embed.add_field(name="g9 ban <user>", value="Ban someone from the server\n", inline = False)
+    embed.add_field(name="g9 unban <user>", value="Revoke a previous ban\n", inline = False)
+    
+    await ctx.reply(embed=embed)
 
 @bot.event
 async def on_ready():
