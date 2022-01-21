@@ -8,3 +8,5 @@ bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allow
 @bot.command(name="ping", aliases=["latency"])
 async def ping(ctx):
     await ctx.reply(f"woah the ping is: {str(round(bot.latency * 1000))}ms")
+
+bot.run()
