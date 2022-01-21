@@ -1,0 +1,32 @@
+{
+  "name": "g9ds-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot made for the Grade 9 Discord Server.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scp-studios/g9ds-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "grade9",
+    "server"
+  ],
+  "author": "SCP Studios",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scp-studios/g9ds-bot/issues"
+  },
+  "homepage": "https://github.com/scp-studios/g9ds-bot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "discord": "^0.8.2",
+    "discord-api-types": "^0.26.1",
+    "discord.js": "^13.6.0"
+  }
+}

@@ -2,7 +2,6 @@ import discord
 import time
 from discord.ext import commands
 import fun_stuff
-import random
 import welcome
 from discord.ext.commands import has_permissions
 
@@ -50,11 +49,6 @@ async def unban(ctx, id: int):
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
     print(f'[{str(time.strftime("%H:%M:%S", time.localtime()))}] Bot is now running woo.')
-
-@bot.event
-async def on_member_join(member: discord.Member):
-    welcomeChannel = await bot.get_channel(934115241036505121)
-    await welcomeChannel.send(random.choice(welcome.joinMsgs).replace('NewUser',f'<@{str(member.id)}>'))
 
 token = open("../token.txt", "r").read()
 bot.run(token)
