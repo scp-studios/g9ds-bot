@@ -25,6 +25,15 @@ async def ban(ctx, member: discord.Member, *, reason = None):
     except discord.errors.Forbidden:
         await ctx.reply("i dont have permissions to ban that user")
 
+@bot.command(name="kick")
+@has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member,*, reason = None):
+    try:
+        await member.kick(reason = reason)
+        await ctx.reply(f"yikes {member} was kicked\nreason: {reason}")
+    except discord.errors.Forbidden:
+        await ctx.reply("i dont have permissions to kick that user")
+
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
