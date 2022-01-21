@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/scp-studios/g9ds-bot/issues"
   },
-  "homepage": "https://github.com/scp-studios/g9ds-bot#readme"
+  "homepage": "https://github.com/scp-studios/g9ds-bot#readme",
+  "dependencies": {
+    "discord": "^0.8.2"
+  }
 }
