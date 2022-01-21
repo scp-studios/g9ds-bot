@@ -10,5 +10,4 @@ async def ping(ctx):
     await ctx.reply(f"woah the ping is: {str(round(bot.latency * 1000))}ms")
 
 token = open("token.txt", "r").read()
-
 bot.run(token)
