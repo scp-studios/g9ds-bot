@@ -5,6 +5,7 @@ import fun_stuff
 import welcome
 from discord.ext.commands import has_permissions
 import random
+import threading
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -62,6 +63,14 @@ async def help(ctx: discord.ext.commands.Context):
     embed.add_field(name="g9 unban <user>", value="Revoke a previous ban\n", inline = False)
     
     await ctx.reply(embed=embed)
+
+@bot.command(name = "shutdown")
+async def shutdown(context: discord.ext.commands.Context):
+    if context.author.id == 650439182204010496 or context.author.id == 672892838995820553:
+        await context.reply("Shutting down...")
+        await context.bot.close()
+    else:
+        await context.reply("You're not botdev so u can't shut down the bot bozo")
 
 @bot.event
 async def on_ready():
