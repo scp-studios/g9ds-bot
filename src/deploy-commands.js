@@ -5,9 +5,14 @@ const { clientId, guildId } = require('./config.json');
 const { token } = require("./token.json")
 
 function deployCommands() {
-	const commands = [
-		new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
-	].map(command => command.toJSON());
+	const commands = []
+	const commandFiles = Filesystem.readdirSync("./commands").filter(file => file.endsWith(".js"))
+	
+	for (const file of commandFiles)
+	{
+	    const command = require(`./commands/${file}`)
+	    bot.commands.set(command.data.name, command)
+	}
 	
 	const rest = new REST({ version: '9' }).setToken(token);
 	
