@@ -2,6 +2,7 @@ import discord
 import time
 from discord.ext import commands
 import fun_stuff
+import welcome
 from discord.ext.commands import has_permissions
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
@@ -48,7 +49,6 @@ async def unban(ctx, id: int):
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
     print(f'[{str(time.strftime("%H:%M:%S", time.localtime()))}] Bot is now running woo.')
-
 
 token = open("../token.txt", "r").read()
 bot.run(token)
