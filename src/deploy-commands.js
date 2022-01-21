@@ -4,12 +4,16 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId } = require('./config.json');
 const { token } = require("./token.json")
 
-const commands = [
-	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
-].map(command => command.toJSON());
+function deployCommands() {
+	const commands = [
+		new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
+	].map(command => command.toJSON());
+	
+	const rest = new REST({ version: '9' }).setToken(token);
+	
+	rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+		.then(() => console.log('Successfully registered application commands.'))
+		.catch(console.error);
+}
 
-const rest = new REST({ version: '9' }).setToken(token);
-
-rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
-	.then(() => console.log('Successfully registered application commands.'))
-	.catch(console.error);
+module.exports = { deployCommands }
