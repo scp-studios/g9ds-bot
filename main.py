@@ -15,6 +15,7 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
     print(f'[{str(time.strftime("%H:%M:%S", time.localtime()))}] bot is now running woo')
 
-token = open("token.txt", "r").read()
 
+
+token = open("token.txt", "r").read()
 bot.run(token)
