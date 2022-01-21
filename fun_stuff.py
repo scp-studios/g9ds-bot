@@ -3,8 +3,8 @@ import discord
 
 spamming = False
 
-def spam(channel: discord.TextChannel, message: str, delay: float):
+async def spam(channel: discord.TextChannel, message: str, delay: float):
     spamming = True
     while spamming:
-        channel.send(message)
+        await channel.send(message)
         time.sleep(delay)
