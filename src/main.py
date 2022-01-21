@@ -53,14 +53,16 @@ async def kick(ctx, member: discord.Member,*, reason = None):
 async def unban(ctx, id: int):
     member = await bot.fetch_user(id)
     await ctx.guild.unban(member)
+    await ctx.reply(f"unbanned {member}")
 
 @bot.command(name="help", aliases=["commands"])
-async def help(ctx):
+async def help(ctx: discord.ext.commands.Context):
     embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
     embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
-    embed.add_field(name="g9 ban", value="Ban a user.")
-    embed.add_field(name="g9 unban", value="Kick a user.")
-    embed.add_field(name="g9 kick", value="Kick a user.")
+    embed.add_field(name="g9 ban <user>", value="Ban a user.")
+    embed.add_field(name="g9 unban <user>", value="Unban a user.")
+    embed.add_field(name="g9 kick <user>", value="Kick a user.")
+    embed.add_field(name="g9 spam", value="Spam a message (You can stop it now).")
     embed.add_field(name="Other slash commands made by Yue", value="Honestly I'm too lazy to check the js files but Ill check later I think h")
     embed.set_footer(text="made by Hello56721#8083 and Human#7849")
     await ctx.send(embed=embed)
