@@ -14,8 +14,11 @@ module.exports = {
         const member = interaction.options.getMentionable("member", true)
         const reason = interaction.options.getString("reason", false)
         
-        member.kick("reason")
-        
-        await interaction.reply(`Oof. ${member} has been kicked out of the server.`)
+        member.kick("reason").then(() => {
+            interaction.reply(`Oof. ${member} has been kicked out of the server.`)
+        }).catch(error => {
+            interaction.reply(`I can't kick ${member} out of the server. Please make sure that I have the proper permissions to do so.`)
+            console.error(error)
+        })
     }
 }
