@@ -54,7 +54,7 @@ async def on_ready():
 @bot.event
 async def on_member_join(member: discord.Member):
     welcomeChannel = await bot.get_channel(934115241036505121)
-    await welcomeChannel.send(random.choice(welcome.joinMsgs).replace("NewUser",f"<@{str(member.id)}>"))
+    await welcomeChannel.send(random.choice(welcome.joinMsgs).replace('NewUser',f'<@{str(member.id)}>'))
 
 token = open("../token.txt", "r").read()
 bot.run(token)
