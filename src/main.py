@@ -18,8 +18,11 @@ async def ping(ctx):
 
 # Start spamming command
 @bot.command(name = "start_spamming")
-async def start_spamming(ctx):
-    await fun_stuff.spam(ctx.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
+async def spam(ctx, msg = "Super idol de xiao rong, dou mei ni de tian"):
+    if fun_stuff.spamming:
+        fun_stuff.spamming = False
+    else:
+        await fun_stuff.spam(ctx.channel, msg, 1.0)
 
 # Ban command
 @bot.command(name="ban", aliases=["yeet"])
@@ -56,13 +59,22 @@ async def unban(ctx, id: int):
 @bot.command(name="help", aliases=["commands"])
 async def help(ctx: discord.ext.commands.Context):
     embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
-    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.\n", inline = False)
-    embed.add_field(name="g9 start_spamming", value="Start spamming (you can't stop it).\n", inline = False)
-    embed.add_field(name="g9 kick <user>", value="Kick someone out of the server.\n", inline = False)
-    embed.add_field(name="g9 ban <user>", value="Ban someone from the server\n", inline = False)
-    embed.add_field(name="g9 unban <user>", value="Revoke a previous ban\n", inline = False)
-    
-    await ctx.reply(embed=embed)
+    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
+    embed.add_field(name="g9 ban <user>", value="Ban a user.")
+    embed.add_field(name="g9 unban <user>", value="Unban a user.")
+    embed.add_field(name="g9 kick <user>", value="Kick a user.")
+    embed.add_field(name="g9 spam", value="Spam a message (You can stop it now).")
+    embed.add_field(name="Other slash commands made by Yue", value="Honestly I'm too lazy to check the js files but Ill check later I think h")
+    embed.set_footer(text="made by Hello56721#8083 and Human#7849")
+    await ctx.send(embed=embed)
+
+""" not sure if this works, but if it does it'll be super slow. im looking for something else in the api reference
+@bot.command(name="mute", aliases=["shut"])
+async def mute(ctx, member: discord.Member, * , reason = None):
+    for channel in ctx.guild.channels:
+        await channel.set_permissions(member, send_messages = False)
+    await ctx.send(f"oof {member} was muted\nreason: {reason}")
+"""
 
 @bot.command(name = "shutdown")
 async def shutdown(context: discord.ext.commands.Context):
