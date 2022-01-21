@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/scp-studios/g9ds-bot#readme",
   "dependencies": {
-    "discord": "^0.8.2"
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "discord": "^0.8.2",
+    "discord-api-types": "^0.26.1"
   }
 }
