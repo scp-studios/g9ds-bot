@@ -4,6 +4,7 @@ from discord.ext import commands
 import fun_stuff
 import welcome
 from discord.ext.commands import has_permissions
+import random
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -16,8 +17,8 @@ async def ping(ctx):
 
 # Start spamming command
 @bot.command(name = "start_spamming")
-async def start_spamming(context):
-    await fun_stuff.spam(context.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
+async def start_spamming(ctx):
+    await fun_stuff.spam(ctx.channel, "Super idol de xiao rong, dou mei ni de tian", 1.0)
 
 # Ban command
 @bot.command(name="ban", aliases=["yeet"])
@@ -49,6 +50,12 @@ async def kick(ctx, member: discord.Member,*, reason = None):
 async def unban(ctx, id: int):
     member = await bot.fetch_user(id)
     await ctx.guild.unban(member)
+
+@bot.command(name="help", aliases=["commands"])
+async def help(ctx):
+    embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
+    embed.add_field(name="g9 ", value="See the latency of the bot in milliseconds.")
 
 @bot.event
 async def on_ready():
