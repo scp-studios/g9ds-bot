@@ -12,7 +12,7 @@ allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=Tr
 bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allowed_mentions, help_command=None)
 
 def botowner():
-    botownerl = [650439182204010496, 672892838995820553]
+    botownerl = (650439182204010496, 672892838995820553)
     def check(context):
         return context.message.author.id in botownerl
     return commands.check(check)
