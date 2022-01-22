@@ -28,5 +28,6 @@
     "discord": "^0.8.2",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0"
-  }
+  },
+  "devDependencies": {}
 }
