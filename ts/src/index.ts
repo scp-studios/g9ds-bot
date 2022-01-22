@@ -1,4 +1,5 @@
 import discord from "discord.js"
+import token from "./token.json"
 
 function onReady() {
     console.log("The Client is now running woo!")
@@ -13,7 +14,7 @@ function main() {
     
     bot.once("ready", onReady)
     
-    bot.login()
+    bot.login(token.token)
 }
 
 main()
