@@ -6,6 +6,8 @@ export function kick(interaction: CommandInteraction) {
     const reason: string = interaction.options.getString("reason", false) as string
     
     member.kick(reason)
+    
+    interaction.reply({ content: `Successfully kicked ${member}.`, ephemeral: true })
 }
 
 export function ban(interaction: CommandInteraction) {
@@ -13,4 +15,6 @@ export function ban(interaction: CommandInteraction) {
     const reason: string = interaction.options.getString("reason", false) as string
     
     member.ban({ reason: reason })
+    
+    interaction.reply({ content: `Successfully banned ${member}.`, ephemeral: true })
 }
