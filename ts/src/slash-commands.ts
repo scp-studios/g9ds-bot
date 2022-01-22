@@ -1,22 +1,16 @@
-import DiscordBuilders from "@discordjs/builders"
-import DiscordREST from "@discordjs/rest"
-import DiscordAPITypes from "discord-api-types/v9"
-
-let commands: Array<DiscordBuilders.SlashCommandBuilder> = []
-
-export function addCommand(command: DiscordBuilders.SlashCommandBuilder) {
-    commands.push(command)
-}
+import { SlashCommandBuilder } from "@discordjs/builders"
+import { REST } from "@discordjs/rest"
+import { RESTPostAPIApplicationCommandsJSONBody, Routes } from "discord-api-types/v9"
 
 export function deployGuildCommands(guildID: string, botID: string, botToken: string) {
-    const rest: DiscordREST.REST = new DiscordREST.REST({ version: "9" })
+    const rest: REST = new REST({ version: "9" })
     rest.setToken(botToken)
     
-    rest.put(DiscordAPITypes.Routes.applicationGuildCommands(botID, guildID), {
-        body: commands.map((command) => { 
-            command.toJSON() 
-        })
-    }).then(() => {
+    let commands: Array<RESTPostAPIApplicationCommandsJSONBody> = [
+        new SlashCommandBuilder().setName("yeet").setDescription("yeah")
+    ].map((command) => command.toJSON())
+    
+    rest.put(Routes.applicationGuildCommands(botID, guildID), { body: commands }).then(() => {
         console.log("[INFO]: Successfully registerd commands.")
     }).catch(() => {
         console.error("[ERROR]: Failed to register commands.")
