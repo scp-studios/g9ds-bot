@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = __importDefault(require("discord.js"));
 const token_json_1 = __importDefault(require("./token.json"));
 const SlashCommands = __importStar(require("./slash-commands"));
+const ModCommands = __importStar(require("./mod-commands"));
 let commandHandlers = new Map();
 function onReady() {
     console.log("The Client is now running woo!");
@@ -52,6 +53,7 @@ function main() {
         ] });
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token_json_1.default.token);
     commandHandlers.set("yeet", pingCommand);
+    commandHandlers.set("kick", ModCommands.kick);
     bot.once("ready", onReady);
     bot.on("interactionCreate", onInteractionCreate);
     bot.login(token_json_1.default.token);

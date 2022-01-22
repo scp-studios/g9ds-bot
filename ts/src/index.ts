@@ -1,6 +1,7 @@
 import discord from "discord.js"
 import token from "./token.json"
 import * as SlashCommands from "./slash-commands"
+import * as ModCommands from "./mod-commands"
 
 let commandHandlers: Map<String, Function> = new Map()
 
@@ -35,6 +36,7 @@ function main() {
     
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token.token)
     commandHandlers.set("yeet", pingCommand)
+    commandHandlers.set("kick", ModCommands.kick)
     
     bot.once("ready", onReady)
     bot.on("interactionCreate", onInteractionCreate)
