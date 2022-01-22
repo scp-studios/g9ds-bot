@@ -70,7 +70,7 @@ async def help(ctx: discord.ext.commands.Context):
     embed.add_field(name="g9 unban <user>", value="Unban a user.")
     embed.add_field(name="g9 kick <user>", value="Kick a user.")
     embed.add_field(name="g9 spam", value="Spam a message (You can stop it now).")
-    embed.add_field(name="Other slash commands made by Yue", value="Honestly I'm too lazy to check the js files but Ill check later I think h")
+    embed.add_field(name="Other slash commands made by Hello56721", value="Honestly I'm too lazy to check the js files but Ill check later I think h")
     embed.set_footer(text="made by Hello56721#8083 and Human#7849")
     await ctx.send(embed=embed)
 
