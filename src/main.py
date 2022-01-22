@@ -11,6 +11,12 @@ intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voi
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
 bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allowed_mentions, help_command=None)
 
+def botowner():
+    botownerl = [650439182204010496, 672892838995820553]
+    def check(context):
+        return context.message.author.id in botownerl
+    return commands.check(check)
+
 # Ping command
 @bot.command(name="ping", aliases=["latency"])
 async def ping(ctx):
@@ -76,13 +82,11 @@ async def mute(ctx, member: discord.Member, * , reason = None):
     await ctx.send(f"oof {member} was muted\nreason: {reason}")
 """
 
-@bot.command(name = "shutdown")
-async def shutdown(context: discord.ext.commands.Context):
-    if context.author.id == 650439182204010496 or context.author.id == 672892838995820553:
-        await context.reply("Shutting down...")
-        await context.bot.close()
-    else:
-        await context.reply("You're not botdev so u can't shut down the bot bozo")
+@bot.command(name = "shutdown", aliases = ["kill"])
+@botowner()
+async def shutdown(context):
+    await context.reply("Shutting down...")
+    await context.bot.close()
 
 @bot.event
 async def on_ready():
