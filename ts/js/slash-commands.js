@@ -8,9 +8,11 @@ function deployGuildCommands(guildID, botID, botToken) {
     const rest = new rest_1.REST({ version: "9" });
     rest.setToken(botToken);
     let commands = [
+        // yeet command
         new builders_1.SlashCommandBuilder()
             .setName("yeet")
             .setDescription("yeah"),
+        // kick command
         new builders_1.SlashCommandBuilder()
             .setName("kick")
             .setDescription("Kick the specified member out of the server.")

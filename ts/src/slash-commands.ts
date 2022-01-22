@@ -7,9 +7,11 @@ export function deployGuildCommands(guildID: string, botID: string, botToken: st
     rest.setToken(botToken)
     
     let commands: Array<RESTPostAPIApplicationCommandsJSONBody> = [
+        // yeet command
         new SlashCommandBuilder()
             .setName("yeet")
             .setDescription("yeah"),
+        // kick command
         new SlashCommandBuilder()
             .setName("kick")
             .setDescription("Kick the specified member out of the server.")
