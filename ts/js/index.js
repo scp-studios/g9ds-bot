@@ -36,6 +36,9 @@ function onInteractionCreate(p_interaction) {
         if (commandHandler != undefined) {
             commandHandler(commandInteraction);
         }
+        else {
+            commandInteraction.reply("There appears to be no handlers registered for this command.");
+        }
     }
 }
 function pingCommand(interaction) {
