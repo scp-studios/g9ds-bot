@@ -37,6 +37,7 @@ function main() {
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token.token)
     commandHandlers.set("yeet", pingCommand)
     commandHandlers.set("kick", ModCommands.kick)
+    commandHandlers.set("ban", ModCommands.ban)
     
     bot.once("ready", onReady)
     bot.on("interactionCreate", onInteractionCreate)

@@ -23,6 +23,18 @@ function deployGuildCommands(guildID, botID, botToken) {
             .addStringOption(new builders_1.SlashCommandStringOption()
             .setName("reason")
             .setDescription("The reason that member was kicked")
+            .setRequired(false)),
+        // ban command
+        new builders_1.SlashCommandBuilder()
+            .setName("ban")
+            .setDescription("Ban specified member from the server.")
+            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
+            .setName("member")
+            .setDescription("The member that you wanted to ban.")
+            .setRequired(true))
+            .addStringOption(new builders_1.SlashCommandStringOption()
+            .setName("reason")
+            .setDescription("The reason that member was banned.")
             .setRequired(false))
     ].map((command) => command.toJSON());
     rest.put(v9_1.Routes.applicationGuildCommands(botID, guildID), { body: commands }).then(() => {
