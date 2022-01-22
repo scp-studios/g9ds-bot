@@ -8,7 +8,20 @@ function deployGuildCommands(guildID, botID, botToken) {
     const rest = new rest_1.REST({ version: "9" });
     rest.setToken(botToken);
     let commands = [
-        new builders_1.SlashCommandBuilder().setName("yeet").setDescription("yeah")
+        new builders_1.SlashCommandBuilder()
+            .setName("yeet")
+            .setDescription("yeah"),
+        new builders_1.SlashCommandBuilder()
+            .setName("kick")
+            .setDescription("Kick the specified member out of the server.")
+            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
+            .setName("member")
+            .setDescription("The member you wanted to kick")
+            .setRequired(true))
+            .addStringOption(new builders_1.SlashCommandStringOption()
+            .setName("reason")
+            .setDescription("The reason that member was kicked")
+            .setRequired(false))
     ].map((command) => command.toJSON());
     rest.put(v9_1.Routes.applicationGuildCommands(botID, guildID), { body: commands }).then(() => {
         console.log("[INFO]: Successfully registerd commands.");
