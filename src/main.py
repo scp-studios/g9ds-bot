@@ -1,3 +1,4 @@
+from http.client import FORBIDDEN
 import discord
 import time
 from discord.ext import commands
@@ -96,7 +97,6 @@ async def shutdown(context):
     await context.bot.close()
 
 @bot.command(name = "reactkick")
-@botowner()
 async def reactbanning(ctx):
     global banmsg
     hammer = "\N{HAMMER}"
@@ -112,8 +112,11 @@ async def on_ready():
 @bot.event
 async def on_reaction_add(reaction, user):
     if reaction.message.id == banmsg:
-        await user.kick(reason = "Asked for it")
-        await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
+        try:
+            await user.kick(reason = "Asked for it")
+            await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
+        except discord.errors.Forbidden:
+            await reaction.message.channel.send(f"OH NO i dont have perms to kick {user} that sucks ngl :pouting_cat:")
 
 @bot.event
 async def on_message(message: discord.Message):
