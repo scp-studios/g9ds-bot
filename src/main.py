@@ -116,7 +116,7 @@ async def on_reaction_add(reaction, user):
             await user.kick(reason = "Asked for it")
             await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
         except discord.errors.Forbidden:
-            await reaction.message.channel.send(f"OH NO i dont have perms to kick {user} that sucks ngl :pouting_cat:")
+            0 if (user.id == 934103484507246652) else await reaction.message.channel.send(f"OH NO i dont have perms to kick {user} that sucks ngl :pouting_cat:")
 
 @bot.event
 async def on_message(message: discord.Message):
