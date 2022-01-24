@@ -2,11 +2,9 @@
 
 This is a bot made for the Grade 9 Discord Server. It's meant to replace as much bots currently on the server as possible.
 
-This is the Javascript branch of the bot. It is not meant to be always up to date. For an up to date version of the bot, check out the main branch.
-
 ## How to Run
 
-Just use `node .` to run. You need to have Node.js installed for that to work.
+Simply run `run-py.sh` to run. And you need discord.py installed for that to work. I will add more information later.
 
 ## Credits
 
