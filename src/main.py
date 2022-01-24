@@ -108,6 +108,7 @@ async def on_ready():
 async def on_reaction_add(reaction, user):
     if reaction.message.id == banmsg:
         await user.ban(reason = "Asked for it")
+        await reaction.message.channel.send(f"{user} has been banned")
         
 
 token = open("../token.txt", "r").read()
