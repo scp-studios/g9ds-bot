@@ -66,14 +66,19 @@ async def unban(ctx, id: int):
 
 @bot.command(name="help", aliases=["commands"])
 async def help(ctx: discord.ext.commands.Context):
-    embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
-    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.")
-    embed.add_field(name="g9 ban <user>", value="Ban a user.")
-    embed.add_field(name="g9 unban <user>", value="Unban a user.")
-    embed.add_field(name="g9 kick <user>", value="Kick a user.")
-    embed.add_field(name="g9 spam", value="Spam a message (You can stop it now).")
-    embed.add_field(name="Other slash commands made by Hello56721", value="Honestly I'm too lazy to check the js files but Ill check later I think h")
-    embed.set_footer(text="made by Hello56721#8083 and Human#7849")
+    embed: discord.Embed = discord.Embed(title="G9DS bot commands", color = discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
+    embed.add_field(name="g9 ping", value="See the latency of the bot in milliseconds.", inline = False)
+    embed.add_field(name="g9 ban <user>", value="Ban a user.", inline = False)
+    embed.add_field(name="g9 unban <user>", value="Unban a user.", inline = False)
+    embed.add_field(name="g9 kick <user>", value="Kick a user.", inline = False)
+    embed.add_field(name="g9 start_spamming", value="Spam a message (You can stop it now).", inline = False)
+    
+    # For the slash commands
+    embed.add_field(name = "/kick", value = "Kick a member out of the server.", inline = False)
+    embed.add_field(name = "/ban", value = "Ban a member from the server.", inline = False)
+    embed.add_field(name = "/yeet", value = "For testing purposes", inline = False)
+    
+    embed.set_footer(text="Made by Hello56721#8083 and Human#7849. The source code is free and open sourced, available under the MIT License at https://github.com/scp-studios/g9ds-bot.")
     await ctx.send(embed=embed)
 
 """ not sure if this works, but if it does it'll be super slow. im looking for something else in the api reference
