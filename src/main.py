@@ -90,7 +90,7 @@ async def shutdown(context):
     await context.reply("Shutting down...")
     await context.bot.close()
 
-@bot.command(name = "reactbanning")
+@bot.command(name = "reactban")
 @botowner()
 async def reactbanning(ctx):
     global banmsg
