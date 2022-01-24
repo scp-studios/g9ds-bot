@@ -109,7 +109,11 @@ async def on_reaction_add(reaction, user):
     if reaction.message.id == banmsg:
         await user.kick(reason = "Asked for it")
         await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
-        
+
+@bot.event
+async def on_message(message: discord.Message):
+    print(f"[MESSAGE #{message.channel} from {message.author.display_name}]: {message.content}")
+    await bot.process_commands(message)
 
 token = open("../token.txt", "r").read()
 bot.run(token)
