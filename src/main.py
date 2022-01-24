@@ -37,6 +37,10 @@ async def spam(ctx, msg = "Super idol de xiao rong, dou mei ni de tian"):
 @bot.command(name="ban", aliases=["yeet"])
 @has_permissions(ban_members=True)
 async def ban(ctx, *, member: discord.Member = None, reason = None):
+    if member is None:
+        await ctx.reply("hello you need to mention a user for it to work")
+        return
+    
     try:
         await member.ban(reason = reason)
         await ctx.reply(f"yikes {member} was banned\nreason: {reason}")
@@ -44,9 +48,6 @@ async def ban(ctx, *, member: discord.Member = None, reason = None):
         await ctx.reply("i dont have permissions to ban that user")
     except:
         await ctx.reply("idk y but i cant ban that guy")
-    finally:
-        if member is None:
-            await ctx.reply("hello you need to mention a user for it to work")
 
 # Kick command
 @bot.command(name="kick")
