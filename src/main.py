@@ -17,6 +17,8 @@ def botowner():
         return context.message.author.id in botownerl
     return commands.check(check)
 
+banmsg = 0
+
 # Ping command
 @bot.command(name="ping", aliases=["latency"])
 async def ping(ctx):
@@ -88,10 +90,25 @@ async def shutdown(context):
     await context.reply("Shutting down...")
     await context.bot.close()
 
+@bot.command(name = "reactbanning")
+@botowner()
+async def reactbanning(ctx):
+    global banmsg
+    hammer = "\N{HAMMER}"
+    msg = await ctx.send("React to this message to get banned!")
+    await msg.add_reaction(hammer)
+    banmsg = msg.id
+
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
     print(f'[{str(time.strftime("%H:%M:%S", time.localtime()))}] Bot is now running woo.')
+
+@bot.event
+async def on_reaction_add(reaction, user):
+    if reaction.message == banmsg:
+        await user.ban(reason = "Asked for it")
+        
 
 token = open("../token.txt", "r").read()
 bot.run(token)
