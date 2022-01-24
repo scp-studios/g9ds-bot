@@ -38,7 +38,7 @@ function onInteractionCreate(p_interaction: discord.Interaction) {
 // This function is pretty primitive so far. I might extend it later on.
 // Also, it's suppose to reply with the bot latency, not "yeet"
 function pingCommand(interaction: discord.CommandInteraction) {
-    interaction.reply("Yeet!")
+    interaction.reply({ content: `Bot response latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(interaction.client.ws.ping)}ms`})
 }
 
 // JavaScript doesn't really need a main function, and we end up calling it at
@@ -59,7 +59,7 @@ function main() {
     // to our test server. However, once the bot gets it's place in the real
     // G9DS, we will deploy the commands to that server as well.
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token.token)
-    commandHandlers.set("yeet", pingCommand)
+    commandHandlers.set("ping", pingCommand)
     commandHandlers.set("kick", ModCommands.kick)
     commandHandlers.set("ban", ModCommands.ban)
     

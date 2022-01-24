@@ -9,8 +9,8 @@ function deployGuildCommands(guildID, botID, botToken) {
     rest.setToken(botToken);
     let commands = [
         new builders_1.SlashCommandBuilder()
-            .setName("yeet")
-            .setDescription("yeah"),
+            .setName("ping")
+            .setDescription("See the latency of the bot in milliseconds"),
         new builders_1.SlashCommandBuilder()
             .setName("kick")
             .setDescription("Kick the specified member out of the server.")

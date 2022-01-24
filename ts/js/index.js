@@ -43,7 +43,7 @@ function onInteractionCreate(p_interaction) {
     }
 }
 function pingCommand(interaction) {
-    interaction.reply("Yeet!");
+    interaction.reply({ content: `Bot response latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(interaction.client.ws.ping)}ms` });
 }
 function main() {
     const bot = new discord_js_1.default.Client({ intents: [
@@ -52,7 +52,7 @@ function main() {
             discord_js_1.default.Intents.FLAGS.GUILD_MEMBERS,
         ] });
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token_json_1.default.token);
-    commandHandlers.set("yeet", pingCommand);
+    commandHandlers.set("ping", pingCommand);
     commandHandlers.set("kick", ModCommands.kick);
     commandHandlers.set("ban", ModCommands.ban);
     bot.once("ready", onReady);
