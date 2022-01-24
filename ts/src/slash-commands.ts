@@ -7,10 +7,13 @@ export function deployGuildCommands(guildID: string, botID: string, botToken: st
     rest.setToken(botToken)
     
     let commands: Array<RESTPostAPIApplicationCommandsJSONBody> = [
-        // yeet command
+        // ping command
         new SlashCommandBuilder()
             .setName("ping")
             .setDescription("See the latency of the bot in milliseconds"),
+        new SlashCommandBuilder()
+            .setName("shutdown")
+            .setDescription("Shuts down the bot."),
         // kick command
         new SlashCommandBuilder()
             .setName("kick")

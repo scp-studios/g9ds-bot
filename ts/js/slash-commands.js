@@ -12,6 +12,9 @@ function deployGuildCommands(guildID, botID, botToken) {
             .setName("ping")
             .setDescription("See the latency of the bot in milliseconds"),
         new builders_1.SlashCommandBuilder()
+            .setName("shutdown")
+            .setDescription("Shuts down the bot."),
+        new builders_1.SlashCommandBuilder()
             .setName("kick")
             .setDescription("Kick the specified member out of the server.")
             .addMentionableOption(new builders_1.SlashCommandMentionableOption()
@@ -41,4 +44,3 @@ function deployGuildCommands(guildID, botID, botToken) {
     });
 }
 exports.deployGuildCommands = deployGuildCommands;
-//# sourceMappingURL=slash-commands.js.map

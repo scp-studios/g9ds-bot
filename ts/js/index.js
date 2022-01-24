@@ -27,6 +27,10 @@ const token_json_1 = __importDefault(require("./token.json"));
 const SlashCommands = __importStar(require("./slash-commands"));
 const ModCommands = __importStar(require("./mod-commands"));
 let commandHandlers = new Map();
+let botDevelopers = [
+    "650439182204010496",
+    "650439182204010496",
+];
 function onReady() {
     console.log("[INFO]: The Client is now running woo!");
 }
@@ -45,6 +49,15 @@ function onInteractionCreate(p_interaction) {
 function pingCommand(interaction) {
     interaction.reply({ content: `Bot response latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(interaction.client.ws.ping)}ms` });
 }
+function shutdownCommand(interaction) {
+    if (botDevelopers.includes(interaction.member.id)) {
+        interaction.reply({ content: "Shutting down...", ephemeral: true });
+        interaction.client.destroy();
+    }
+    else {
+        interaction.reply("u cant do that bozo :joy_cat: :joy_cat: :joy_cat:");
+    }
+}
 function main() {
     const bot = new discord_js_1.default.Client({ intents: [
             discord_js_1.default.Intents.FLAGS.GUILDS,
@@ -53,6 +66,7 @@ function main() {
         ] });
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token_json_1.default.token);
     commandHandlers.set("ping", pingCommand);
+    commandHandlers.set("shutdown", shutdownCommand);
     commandHandlers.set("kick", ModCommands.kick);
     commandHandlers.set("ban", ModCommands.ban);
     bot.once("ready", onReady);
@@ -60,4 +74,3 @@ function main() {
     bot.login(token_json_1.default.token);
 }
 main();
-//# sourceMappingURL=index.js.map

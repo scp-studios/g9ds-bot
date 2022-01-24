@@ -6,6 +6,13 @@ import * as ModCommands from "./mod-commands"
 // A map of command handlers, mainly for handling commands.
 let commandHandlers: Map<String, Function> = new Map()
 
+// An array of bot developers that are allowed to and sometimes needs to access
+// developer-only commands.
+let botDevelopers: Array<string> = [
+    "650439182204010496", // Human#7849
+    "650439182204010496", // Hello56721#8083
+]
+
 // The function that is executed when the bot is ready.
 function onReady() {
     console.log("[INFO]: The Client is now running woo!")
@@ -35,10 +42,22 @@ function onInteractionCreate(p_interaction: discord.Interaction) {
     }
 }
 
-// This function is pretty primitive so far. I might extend it later on.
-// Also, it's suppose to reply with the bot latency, not "yeet"
+// Very simple. However, it doesn't fully work yet for some reasons. The bot
+// response latency always reports a negative number.
 function pingCommand(interaction: discord.CommandInteraction) {
     interaction.reply({ content: `Bot response latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(interaction.client.ws.ping)}ms`})
+}
+
+// A command to shutdown the bot. This responds with an ephemeral message
+// like all of the other commands. I usually use ephemeral messages if other
+// people don't need to see the result of the command
+function shutdownCommand(interaction: discord.CommandInteraction) {
+    if (botDevelopers.includes((interaction.member as discord.GuildMember).id as string)) {
+        interaction.reply({ content: "Shutting down...", ephemeral: true })
+        interaction.client.destroy()
+    } else {
+        interaction.reply("u cant do that bozo :joy_cat: :joy_cat: :joy_cat:")
+    }
 }
 
 // JavaScript doesn't really need a main function, and we end up calling it at
@@ -60,6 +79,7 @@ function main() {
     // G9DS, we will deploy the commands to that server as well.
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", token.token)
     commandHandlers.set("ping", pingCommand)
+    commandHandlers.set("shutdown", shutdownCommand)
     commandHandlers.set("kick", ModCommands.kick)
     commandHandlers.set("ban", ModCommands.ban)
     
