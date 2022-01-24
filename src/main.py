@@ -106,7 +106,7 @@ async def on_ready():
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if reaction.message == banmsg:
+    if reaction.message.id == banmsg:
         await user.ban(reason = "Asked for it")
         
 
