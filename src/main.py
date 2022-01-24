@@ -112,7 +112,11 @@ async def on_reaction_add(reaction, user):
             await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
         except discord.errors.Forbidden:
             await reaction.message.channel.send(f"OH NO i dont have perms to kick {user} that sucks ngl :pouting_cat:")
-        
+
+@bot.event
+async def on_message(message: discord.Message):
+    print(f"[MESSAGE #{message.channel} from {message.author.display_name}]: {message.content}")
+    await bot.process_commands(message)
 
 token = open("../token.txt", "r").read()
 bot.run(token)
