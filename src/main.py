@@ -12,9 +12,9 @@ allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=Tr
 bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allowed_mentions, help_command=None)
 
 def botowner():
-    botownerl = (650439182204010496, 672892838995820553)
+    botowners = (650439182204010496, 672892838995820553)
     def check(context):
-        return context.message.author.id in botownerl
+        return context.message.author.id in botowners
     return commands.check(check)
 
 banmsg = 0
@@ -90,12 +90,12 @@ async def shutdown(context):
     await context.reply("Shutting down...")
     await context.bot.close()
 
-@bot.command(name = "reactban")
+@bot.command(name = "reactkick")
 @botowner()
 async def reactbanning(ctx):
     global banmsg
     hammer = "\N{HAMMER}"
-    msg = await ctx.send("React to this message to get banned!")
+    msg = await ctx.send("React to this message to get kicked!")
     await msg.add_reaction(hammer)
     banmsg = msg.id
 
@@ -107,8 +107,8 @@ async def on_ready():
 @bot.event
 async def on_reaction_add(reaction, user):
     if reaction.message.id == banmsg:
-        await user.ban(reason = "Asked for it")
-        await reaction.message.channel.send(f"{user} has been banned! :joy_cat:")
+        await user.kick(reason = "Asked for it")
+        await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
         
 
 token = open("../token.txt", "r").read()
