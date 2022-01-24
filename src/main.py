@@ -26,7 +26,7 @@ async def ping(ctx):
     await ctx.reply(f"Woah, the ping is `{str(round(bot.latency * 1000))}ms`.")
 
 # Start spamming command
-@bot.command(name = "start_spamming")
+@bot.command(name = "spam", aliases=["start_spamming"])
 async def spam(ctx, msg = "Super idol de xiao rong, dou mei ni de tian"):
     if fun_stuff.spamming:
         fun_stuff.spamming = False
