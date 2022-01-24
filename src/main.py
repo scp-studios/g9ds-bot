@@ -111,7 +111,7 @@ async def on_ready():
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if reaction.message.id == banmsg:
+    if reaction.message.id == banmsg and user != bot.user:
         try:
             await user.kick(reason = "Asked for it")
             await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
