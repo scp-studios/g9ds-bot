@@ -32,4 +32,3 @@ function ban(interaction) {
     });
 }
 exports.ban = ban;
-//# sourceMappingURL=mod-commands.js.map
