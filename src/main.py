@@ -44,8 +44,9 @@ async def ban(ctx, *, member: discord.Member = None, reason = None):
         await ctx.reply("i dont have permissions to ban that user")
     except:
         await ctx.reply("idk y but i cant ban that guy")
-    if member is None:
-        await ctx.reply("hello you need to mention a user for it to work")
+    finally:
+        if member is None:
+            await ctx.reply("hello you need to mention a user for it to work")
 
 # Kick command
 @bot.command(name="kick")
