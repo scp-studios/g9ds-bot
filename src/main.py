@@ -52,12 +52,18 @@ async def ban(ctx, *, member: discord.Member = None, reason = None):
 # Kick command
 @bot.command(name="kick")
 @has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member,*, reason = None):
+async def kick(ctx, *, member: discord.Member, reason = None):
+    if member is None:
+        await ctx.reply("hello you need to mention a user for it to work")
+        return
+    
     try:
         await member.kick(reason = reason)
         await ctx.reply(f"yikes {member} was kicked\nreason: {reason}")
     except discord.errors.Forbidden:
         await ctx.reply("i dont have permissions to kick that user")
+    except:
+        await ctx.reply("idk y but i cant kick that guy")
 
 # Unban command
 @bot.command(name="unban")
