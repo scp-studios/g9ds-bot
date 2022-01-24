@@ -54,7 +54,6 @@ async def ban(ctx: discord.ext.commands.Context, *, member: discord.Member = Non
 
 # Kick command
 @bot.command(name="kick")
-@has_permissions(kick_members=True)
 async def kick(ctx, *, member: discord.Member = None, reason = None):
     if not ctx.author.permissions_in(ctx.channel).kick_members:
         await ctx.reply("u dont have kick permission bozo :joy_cat: :joy_cat: :joy_cat:")
