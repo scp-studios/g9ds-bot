@@ -18,7 +18,7 @@ def botowner():
         return context.message.author.id in botowners
     return commands.check(check)
 
-banmsg = 0
+banmsg = []
 
 # Ping command
 @bot.command(name="ping", aliases=["latency"])
@@ -102,7 +102,7 @@ async def reactbanning(ctx):
     hammer = "\N{HAMMER}"
     msg = await ctx.send("React to this message to get kicked!")
     await msg.add_reaction(hammer)
-    banmsg = msg.id
+    banmsg.append(msg.id)
 
 @bot.event
 async def on_ready():
@@ -111,7 +111,7 @@ async def on_ready():
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    if reaction.message.id == banmsg:
+    if reaction.message.id in banmsg:
         try:
             await user.kick(reason = "Asked for it")
             await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
