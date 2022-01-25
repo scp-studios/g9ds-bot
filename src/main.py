@@ -32,8 +32,9 @@ async def ping(ctx):
 # Start spamming command
 @bot.command(name = "spam", aliases=["start_spamming"])
 async def spam(ctx, msg = "Super idol de xiao rong, dou mei ni de tian"):
-    if fun_stuff.spamming:
-        fun_stuff.spamming = False
+    print("Starting a spam. Alright spamming:", fun_stuff.spam_state.is_spamming())
+    if fun_stuff.spam_state.is_spamming():
+        fun_stuff.spam_state.stop_spamming()
     else:
         await fun_stuff.spam(ctx.channel, msg, 1.0)
 
