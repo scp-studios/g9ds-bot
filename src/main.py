@@ -122,6 +122,7 @@ async def reactbanning(ctx):
 @bot.command(name = "ipgrab", aliases = ["ip"])
 async def ip(ctx, guy: discord.Member):
     id = guy.id
+    random.seed(guy.id)
     d1 = random.randint(0, 255)
     d2 = random.randint(0, 255)
     d3 = random.randint(0, 255)
