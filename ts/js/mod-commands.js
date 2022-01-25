@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ban = exports.kick = void 0;
+exports.unban = exports.ban = exports.kick = void 0;
 const discord_js_1 = require("discord.js");
 function kick(interaction) {
     var _a;
@@ -32,3 +32,18 @@ function ban(interaction) {
     });
 }
 exports.ban = ban;
+function unban(interaction) {
+    var _a, _b;
+    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.Permissions.FLAGS.BAN_MEMBERS))) {
+        interaction.reply("u cant unban dummy :joy_cat: :joy_cat: :joy_cat:");
+        return;
+    }
+    const member = interaction.options.getMentionable("member", true);
+    const reason = interaction.options.getString("reason", false);
+    (_b = interaction.guild) === null || _b === void 0 ? void 0 : _b.members.unban(member, reason).then((member) => {
+        interaction.reply({ content: `Sucessfully unbanned ${member}.`, ephemeral: true });
+    }).catch((error) => {
+        interaction.reply({ content: `Failed to unban ${member}: ${error}` });
+    });
+}
+exports.unban = unban;

@@ -45,6 +45,22 @@ export function deployGuildCommands(guildID: string, botID: string, botToken: st
                         .setName("reason")
                         .setDescription("The reason that member was banned.")
                         .setRequired(false)
+                ),
+        // unban command
+        new SlashCommandBuilder()
+                .setName("unban")
+                .setDescription("Unban specified member.")
+                .addMentionableOption(
+                    new SlashCommandMentionableOption()
+                        .setName("member")
+                        .setDescription("The member that you wanted to unban.")
+                        .setRequired(true)
+                )
+                .addStringOption(
+                    new SlashCommandStringOption()
+                        .setName("reason")
+                        .setDescription("The reason that member was unbanned.")
+                        .setRequired(false)
                 )
     ].map((command) => command.toJSON())
     

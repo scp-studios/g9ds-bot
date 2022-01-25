@@ -35,3 +35,19 @@ export function ban(interaction: CommandInteraction) {
         interaction.reply({ content: `Failed to ban ${member}: ${error}`, ephemeral: true })
     })
 }
+
+export function unban(interaction: CommandInteraction) {
+    if (!(interaction.memberPermissions?.has(Permissions.FLAGS.BAN_MEMBERS))) {
+        interaction.reply("u cant unban dummy :joy_cat: :joy_cat: :joy_cat:")
+        return;
+    }
+    
+    const member: GuildMember = interaction.options.getMentionable("member", true) as GuildMember
+    const reason: string = interaction.options.getString("reason", false) as string
+    
+    interaction.guild?.members.unban(member, reason).then((member) => {
+        interaction.reply({ content: `Sucessfully unbanned ${member}.`, ephemeral: true })
+    }).catch((error) => {
+        interaction.reply({ content: `Failed to unban ${member}: ${error}` })
+    })
+}

@@ -35,6 +35,17 @@ function deployGuildCommands(guildID, botID, botToken) {
             .addStringOption(new builders_1.SlashCommandStringOption()
             .setName("reason")
             .setDescription("The reason that member was banned.")
+            .setRequired(false)),
+        new builders_1.SlashCommandBuilder()
+            .setName("unban")
+            .setDescription("Unban specified member.")
+            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
+            .setName("member")
+            .setDescription("The member that you wanted to unban.")
+            .setRequired(true))
+            .addStringOption(new builders_1.SlashCommandStringOption()
+            .setName("reason")
+            .setDescription("The reason that member was unbanned.")
             .setRequired(false))
     ].map((command) => command.toJSON());
     rest.put(v9_1.Routes.applicationGuildCommands(botID, guildID), { body: commands }).then(() => {

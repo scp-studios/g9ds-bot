@@ -69,6 +69,7 @@ function main() {
     commandHandlers.set("shutdown", shutdownCommand);
     commandHandlers.set("kick", ModCommands.kick);
     commandHandlers.set("ban", ModCommands.ban);
+    commandHandlers.set("unban", ModCommands.unban);
     bot.once("ready", onReady);
     bot.on("interactionCreate", onInteractionCreate);
     bot.login(token_json_1.default.token);
