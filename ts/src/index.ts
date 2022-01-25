@@ -1,11 +1,10 @@
 //import discord from "discord.js"
 import Discord from "discord.js"
+import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Token from "./token.json"
 import SlashCommands from "./slash-commands"
 import ModCommands from "./mod-commands"
-
-// A map of command handlers, mainly for handling commands.
-let commandHandlers: Map<String, Function> = new Map()
 
 // An array of bot developers that are allowed to and sometimes needs to access
 // developer-only commands.
@@ -24,35 +23,20 @@ function onReady() {
 // but will eventually handle other forms of interactions as well.
 function onInteractionCreate(p_interaction: Discord.Interaction) {
     if (p_interaction.isCommand()) {
-        // Not actually neccessary, but basically just meant for intellisense
-        // and all that.
-        const commandInteraction: Discord.CommandInteraction = p_interaction;
-        
-        // We obtain the proper handler to the command from the map I created
-        // earlier. This way, we don't have to create a bunch of if statements
-        // to handle individual commands.
-        const commandHandler: Function | undefined = commandHandlers.get(commandInteraction.commandName)
-        
-        // The command handler we requested may not exist, which is why we
-        // needed to check if it's undefined before we call it.
-        if (commandHandler != undefined) {
-            commandHandler(commandInteraction)
-        } else {
-            commandInteraction.reply("There appears to be no handlers registered for this command.")
-        }
+        SlashCommands.processCommand(p_interaction)
     }
 }
 
 // Very simple. However, it doesn't fully work yet for some reasons. The bot
 // response latency always reports a negative number.
-function pingCommand(interaction: Discord.CommandInteraction) {
+function pingCommandHandler(interaction: Discord.CommandInteraction) {
     interaction.reply({ content: `Bot response latency is ${Date.now() - interaction.createdTimestamp}ms. API Latency is ${Math.round(interaction.client.ws.ping)}ms`})
 }
 
 // A command to shutdown the bot. This responds with an ephemeral message
 // like all of the other commands. I usually use ephemeral messages if other
 // people don't need to see the result of the command
-function shutdownCommand(interaction: Discord.CommandInteraction) {
+function shutdownCommandHandler(interaction: Discord.CommandInteraction) {
     if (botDevelopers.includes((interaction.member as Discord.GuildMember).id as string)) {
         interaction.reply({ content: "Shutting down...", ephemeral: true })
         interaction.client.destroy()
@@ -75,16 +59,22 @@ function main() {
         Discord.Intents.FLAGS.GUILD_MEMBERS,
     ]})
     
+    let pingCommand: SlashCommandBuilder = new SlashCommandBuilder()
+    pingCommand.setName("ping")
+    pingCommand.setDescription("See the latency of the bot in milliseconds")
+    SlashCommands.addCommand(pingCommand, pingCommandHandler)
+    
+    let shutdownCommand: SlashCommandBuilder = new SlashCommandBuilder()
+    shutdownCommand.setName("shutdown")
+    shutdownCommand.setDescription("Shuts down the bot")
+    SlashCommands.addCommand(shutdownCommand, shutdownCommandHandler)
+    
+    // I will add the rest later.
+    
     // Since the bot is currently in development, we're only going to be deploying
     // to our test server. However, once the bot gets it's place in the real
     // G9DS, we will deploy the commands to that server as well.
     SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", Token.token)
-    commandHandlers.set("ping", pingCommand)
-    commandHandlers.set("shutdown", shutdownCommand)
-    commandHandlers.set("kick", ModCommands.kick)
-    commandHandlers.set("ban", ModCommands.ban)
-    commandHandlers.set("unban", ModCommands.unban)
-    
     
     bot.once("ready", onReady)
     bot.on("interactionCreate", onInteractionCreate)

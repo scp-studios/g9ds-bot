@@ -1,57 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deployGuildCommands = void 0;
-const builders_1 = require("@discordjs/builders");
 const rest_1 = require("@discordjs/rest");
 const v9_1 = require("discord-api-types/v9");
+let commands = new Array();
+let handlers = new Map();
 function deployGuildCommands(guildID, botID, botToken) {
     const rest = new rest_1.REST({ version: "9" });
     rest.setToken(botToken);
-    let commands = [
-        new builders_1.SlashCommandBuilder()
-            .setName("ping")
-            .setDescription("See the latency of the bot in milliseconds"),
-        new builders_1.SlashCommandBuilder()
-            .setName("shutdown")
-            .setDescription("Shuts down the bot."),
-        new builders_1.SlashCommandBuilder()
-            .setName("kick")
-            .setDescription("Kick the specified member out of the server.")
-            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
-            .setName("member")
-            .setDescription("The member you wanted to kick")
-            .setRequired(true))
-            .addStringOption(new builders_1.SlashCommandStringOption()
-            .setName("reason")
-            .setDescription("The reason that member was kicked")
-            .setRequired(false)),
-        new builders_1.SlashCommandBuilder()
-            .setName("ban")
-            .setDescription("Ban specified member from the server.")
-            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
-            .setName("member")
-            .setDescription("The member that you wanted to ban.")
-            .setRequired(true))
-            .addStringOption(new builders_1.SlashCommandStringOption()
-            .setName("reason")
-            .setDescription("The reason that member was banned.")
-            .setRequired(false)),
-        new builders_1.SlashCommandBuilder()
-            .setName("unban")
-            .setDescription("Unban specified member.")
-            .addMentionableOption(new builders_1.SlashCommandMentionableOption()
-            .setName("member")
-            .setDescription("The member that you wanted to unban.")
-            .setRequired(true))
-            .addStringOption(new builders_1.SlashCommandStringOption()
-            .setName("reason")
-            .setDescription("The reason that member was unbanned.")
-            .setRequired(false))
-    ].map((command) => command.toJSON());
-    rest.put(v9_1.Routes.applicationGuildCommands(botID, guildID), { body: commands }).then(() => {
+    rest.put(v9_1.Routes.applicationGuildCommands(botID, guildID), { body: commands.map((command) => command.toJSON()) }).then(() => {
         console.log("[INFO]: Successfully registerd commands.");
     }).catch(() => {
         console.error("[ERROR]: Failed to register commands.");
     });
 }
-exports.deployGuildCommands = deployGuildCommands;
+function addCommand(command, handler) {
+    commands.push(command);
+    handlers.set(command.name, handler);
+}
+function processCommand(interaction) {
+    const handler = handlers.get(interaction.commandName);
+    if (handler != undefined) {
+        handler(interaction);
+    }
+    else {
+        interaction.reply("There appears to be no handlers registered for this command. Please contact the bot developers if this problem persists.");
+    }
+}
+exports.default = {
+    deployGuildCommands, addCommand, processCommand
+};
