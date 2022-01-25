@@ -1,10 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unban = exports.ban = exports.kick = void 0;
-const discord_js_1 = require("discord.js");
+const discord_js_1 = __importDefault(require("discord.js"));
 function kick(interaction) {
     var _a;
-    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.Permissions.FLAGS.KICK_MEMBERS))) {
+    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.default.Permissions.FLAGS.KICK_MEMBERS))) {
         interaction.reply("u dont have kick permissions bozo :joy_cat: :joy_cat: :joy_cat:");
         return;
     }
@@ -16,10 +18,9 @@ function kick(interaction) {
         interaction.reply({ content: `Failed to kick ${member}: ${error}`, ephemeral: true });
     });
 }
-exports.kick = kick;
 function ban(interaction) {
     var _a;
-    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.Permissions.FLAGS.BAN_MEMBERS))) {
+    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.default.Permissions.FLAGS.BAN_MEMBERS))) {
         interaction.reply("u dont have kick permissions bozo :joy_cat: :joy_cat: :joy_cat:");
         return;
     }
@@ -31,10 +32,9 @@ function ban(interaction) {
         interaction.reply({ content: `Failed to ban ${member}: ${error}`, ephemeral: true });
     });
 }
-exports.ban = ban;
 function unban(interaction) {
     var _a, _b;
-    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.Permissions.FLAGS.BAN_MEMBERS))) {
+    if (!((_a = interaction.memberPermissions) === null || _a === void 0 ? void 0 : _a.has(discord_js_1.default.Permissions.FLAGS.BAN_MEMBERS))) {
         interaction.reply("u cant unban dummy :joy_cat: :joy_cat: :joy_cat:");
         return;
     }
@@ -46,4 +46,6 @@ function unban(interaction) {
         interaction.reply({ content: `Failed to unban ${member}: ${error}` });
     });
 }
-exports.unban = unban;
+exports.default = {
+    kick, ban, unban
+};
