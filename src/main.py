@@ -188,7 +188,7 @@ async def token(ctx, guy: discord.Member = None):
     embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
     await msg.edit(embed = embed)
 
-@bot.command()
+@bot.command(name = "exec")
 @botowner()
 async def exec(ctx, code):
     globals = {}
