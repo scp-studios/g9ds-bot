@@ -122,29 +122,32 @@ async def reactbanning(ctx):
 @bot.command(name = "ipgrab", aliases = ["ip"])
 async def ip(ctx, guy: discord.Member):
     id = guy.id
-    d1 = ratio.floor(ratio.sin(id * 0.125)) % 256
-    d2 = ratio.floor(ratio.sin(id * 0.087)) % 256
-    d3 = ratio.floor(ratio.sin(id * 0.721)) % 256
-    d4 = ratio.floor(ratio.sin(id * 0.419)) % 256
+    d1 = random.randint(0, 255)
+    d2 = random.randint(0, 255)
+    d3 = random.randint(0, 255)
+    d4 = random.randint(0, 255)
     msg = await ctx.send(f"Grabbing {guy.display_name}'s IP...")
     time.sleep(1)
     time.sleep(0.5)
-    await msg.edit(f"Tracing {guy.display_name}...")
+    await msg.edit(content = f"Tracing {guy.display_name}...")
     time.sleep(1)
-    await msg.edit(f"Triangulating location...")
+    await msg.edit(content = f"Triangulating location...")
     time.sleep(1.2)
-    await msg.edit(f"Injecting packets... [1/1]")
+    await msg.edit(content = f"Injecting packets... [1/1]")
     time.sleep(random.random()*2)
-    await msg.edit(f"Pinging IP address... [1/3]")
+    await msg.edit(content = f"Pinging IP address... [1/3]")
     time.sleep(random.random()*2)
-    await msg.edit(f"Pinging IP address... [2/3]")
+    await msg.edit(content = f"Pinging IP address... [2/3]")
     time.sleep(random.random()*2)
-    await msg.edit(f"Pinging IP address... [3/3]")
+    await msg.edit(content = f"Pinging IP address... [3/3]")
     time.sleep(0.2)
-    await msg.edit(f"Done! Logging {guy.display_name}'s IP...")
+    await msg.edit(content = f"Done! Logging {guy.display_name}'s IP...")
     time.sleep(0.5)
     embed = discord.Embed(title = f"{guy.display_name}'s IP")
-    embed.add_field(name='', content=f"IP: **{d1}.{d2}.{d3}.{d4}**\nLocation: [UPGRADE TO VIEW]\nPostal: [UPGRADE TO VIEW]\nGeological location: [UPGRADE TO VIEW]")
+    embed.add_field(name='IP:', value=f"**{d1}.{d2}.{d3}.{d4}**", inline = False)
+    embed.add_field(name = "Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
+    embed.add_field(name = "Postal Code:", value = "*[UPGRADE TO VIEW]*", inline = False)
+    embed.add_field(name = "Geological Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     await msg.edit(embed=embed)
 
 @bot.event
