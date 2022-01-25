@@ -14,11 +14,13 @@ intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voi
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
 bot = commands.Bot(command_prefix="g9 ", intents=intents, allowed_mentions=allowed_mentions, help_command=None)
 
+botowners = [650439182204010496, 672892838995820553]
+
 def botowner():
-    botowners = (650439182204010496, 672892838995820553)
     def check(context):
         return context.message.author.id in botowners
     return commands.check(check)
+
 
 banmsg = []
 
@@ -163,6 +165,10 @@ async def token(ctx, guy: discord.Member = None):
     if guy == None:
         guy = ctx.author
 
+    if guy.id in botowners:
+        await ctx.reply("u cant grab dat guys ip bozo :joy_cat::joy_cat::joy_cat:")
+        return
+    
     random.seed(guy.id)
     d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
     d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
