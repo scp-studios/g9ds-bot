@@ -23,7 +23,8 @@
             "preLaunchTask": "tsc: build - ts/tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
-            ]
+            ],
+            "console": "internalConsole"
         }
     ]
 }
