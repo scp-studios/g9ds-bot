@@ -162,24 +162,27 @@ async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
 
 @bot.command(name = "tokengrab")
 async def token(ctx, guy: discord.Member = None):
-    if guy == None:
-        guy = ctx.author
+    try:
+        if guy == None:
+            guy = ctx.author
 
-    if guy.id in botowners:
-        await ctx.reply("u cant grab dat guys ip bozo :joy_cat::joy_cat::joy_cat:")
-        return
-    
-    random.seed(guy.id)
-    d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
-    d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
-    d3 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
-    d4 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,21))
-    token = (d1+'.'+d2+'.'+d3+'-'+d4)
-    msg = await ctx.send(f"Grabbing {guy.display_name}'s token...")
-    time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5)
-    embed = discord.Embed(title = "TOKEN GRABBER v1.2")
-    embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
-    await msg.edit(embed = embed)
+        if guy.id in botowners:
+            await ctx.reply("u cant grab dat guys ip bozo :joy_cat::joy_cat::joy_cat:")
+            return
+        
+        random.seed(guy.id)
+        d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
+        d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
+        d3 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
+        d4 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,21))
+        token = (d1+'.'+d2+'.'+d3+'-'+d4)
+        msg = await ctx.send(f"Grabbing {guy.display_name}'s token...")
+        time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5)
+        embed = discord.Embed(title = "TOKEN GRABBER v1.2")
+        embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
+        await msg.edit(embed = embed)
+    except discord.ext.commands.errors.MemberNotFound:
+        await ctx.send(f"member {guy} not found. maybe you need to improve your spelling?")
     
 
 @bot.event
