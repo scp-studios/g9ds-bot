@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python Bot",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main.py",
+            "console": "internalConsole",
+            "cwd": "${workspaceFolder}/src"
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "Launch Program",
