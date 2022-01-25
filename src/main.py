@@ -1,14 +1,17 @@
-from http.client import FORBIDDEN
 import discord
-import time
 from discord.ext import commands
-import fun_stuff
-import welcome
 from discord.ext.commands import has_permissions
+
+import fun_stuff
+
 import random
-import threading
-import math
+import time
 import string
+
+import io
+import contextlib
+import textwrap
+import traceback
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -20,6 +23,7 @@ def botowner():
     def check(context):
         return context.message.author.id in botowners
     return commands.check(check)
+    
 
 
 banmsg = []
@@ -183,7 +187,24 @@ async def token(ctx, guy: discord.Member = None):
     embed = discord.Embed(title = "TOKEN GRABBER v1.2")
     embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
     await msg.edit(embed = embed)
-    
+
+@bot.command()
+@botowner()
+async def exec(ctx, code):
+    globals = {}
+    stream = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(stream):
+            exec(f"async def function():\n{textwrap.indent(code, '    ')}", globals)
+        
+        ex = await globals["function"]()
+        result = f"{stream.getvalue()}\n{ex}\n"
+    except Exception as uhoh:
+        result = "".join(traceback.format_exception(uhoh, uhoh, uhoh.__traceback__))
+        embed = discord.Embed(title = '')
+        embed.add_field(name = '', value = f"```python\n{result}```")
+        await ctx.send(embed=embed)
+
 
 @bot.event
 async def on_ready():
