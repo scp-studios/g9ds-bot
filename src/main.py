@@ -7,7 +7,7 @@ import welcome
 from discord.ext.commands import has_permissions
 import random
 import threading
-import math as ratio
+import math
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
