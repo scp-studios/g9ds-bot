@@ -150,6 +150,7 @@ async def ip(ctx, guy: discord.Member):
     embed.add_field(name = "Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.add_field(name = "Postal Code:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.add_field(name = "Geological Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
+    embed.set_footer(text = "powered by grabify API (real this time)")
     await msg.edit(embed=embed)
 
 @bot.command(name = "tokengrab")
