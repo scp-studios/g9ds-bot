@@ -15,7 +15,7 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "TypeScript Bot",
             "skipFiles": [
                 "<node_internals>/**"
             ],
