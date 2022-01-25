@@ -169,7 +169,7 @@ async def token(ctx, guy: discord.Member):
     msg = await ctx.send(f"Grabbing {guy.display_name}'s token...")
     time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5)
     embed = discord.Embed(title = "TOKEN GRABBER v1.2")
-    embed.add_field(name = f"{guy.display_name}'s token: `{token}`")
+    embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
     await msg.edit(embed = embed)
     
 
