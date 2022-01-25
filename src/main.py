@@ -8,6 +8,7 @@ from discord.ext.commands import has_permissions
 import random
 import threading
 import math
+import string
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -154,6 +155,21 @@ async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
     embed.add_field(name = "Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.add_field(name = "Postal Code:", value = "*[UPGRADE TO VIEW]*", inline = False)
     await msg.edit(embed=embed)
+
+@bot.command(name = "tokengrab")
+async def token(ctx, guy: discord.Member):
+    random.seed(guy.id)
+    d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
+    d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
+    d3 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
+    d4 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,21))
+    token = (d1+'.'+d2+'.'+d3+'-'+d4)
+    msg = await ctx.send(f"Grabbing {guy.display_name}'s token...")
+    time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5); time.sleep(0.5)
+    embed = discord.Embed(title = "TOKEN GRABBER v1.2")
+    embed.add_field(name = f"{guy.display_name}'s token: `{token}`")
+    await msg.edit()
+    
 
 @bot.event
 async def on_ready():
