@@ -120,9 +120,13 @@ async def reactbanning(ctx):
     banmsg.append(msg.id)
 
 @bot.command(name = "ipgrab", aliases = ["ip"])
-async def ip(ctx, guy: discord.Member):
+async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
+    # If the person doesn't specificy a user, it will grab the author's IP.
+    if (guy == None):
+        guy = ctx.author
+    
     id = guy.id
-    random.seed(guy.id)
+    random.seed(guy.id - 10)
     d1 = random.randint(0, 255)
     d2 = random.randint(0, 255)
     d3 = random.randint(0, 255)
@@ -146,9 +150,9 @@ async def ip(ctx, guy: discord.Member):
     time.sleep(0.5)
     embed = discord.Embed(title = f"{guy.display_name}'s IP")
     embed.add_field(name='IP:', value=f"**{d1}.{d2}.{d3}.{d4}**", inline = False)
+    embed.add_field(name = "Geological Location:", value = "*Ontario, Canada*", inline = False)
     embed.add_field(name = "Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.add_field(name = "Postal Code:", value = "*[UPGRADE TO VIEW]*", inline = False)
-    embed.add_field(name = "Geological Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     await msg.edit(embed=embed)
 
 @bot.event
