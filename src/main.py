@@ -199,7 +199,10 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def on_message(message: discord.Message):
     print(f"[MESSAGE #{message.channel} from {message.author.display_name}]: {message.content}")
-    await bot.process_commands(message)
+    try:
+        await bot.process_commands(message)
+    except:
+        message.reply("Something went wrong. Please try again.")
 
 token = open("../token.txt", "r").read()
 bot.run(token)
