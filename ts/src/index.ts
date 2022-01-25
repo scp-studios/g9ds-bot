@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import Token from "./token.json"
 import SlashCommands from "./slash-commands"
-import * as ModCommands from "./mod-commands"
+import ModCommands from "./mod-commands"
 
 // A map of command handlers, mainly for handling commands.
 let commandHandlers: Map<String, Function> = new Map()
