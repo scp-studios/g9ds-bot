@@ -90,7 +90,10 @@ async def help(ctx: discord.ext.commands.Context):
     embed.add_field(name="g9 ban <user>", value="Ban a user.", inline = False)
     embed.add_field(name="g9 unban <user>", value="Unban a user.", inline = False)
     embed.add_field(name="g9 kick <user>", value="Kick a user.", inline = False)
-    embed.add_field(name="g9 start_spamming", value="Spam a message (You can stop it now).", inline = False)
+    embed.add_field(name="g9 spam <msg>", value="Spam a message (You can stop it now).", inline = False)
+    embed.add_field(name="g9 ip <@user>", value="Grab someone's IP. We use grabify API.", inline = False)
+    embed.add_field(name="g9 tokengrab <@user>", value="Grab someone's discord authentication token. After you grab this, you can log into their account!", inline = False)
+    embed.add_field(name="g9 reactkick", value="Everybody who reacts to the message will get kicked.", inline = False)
     
     # For the slash commands
     embed.add_field(name = "/kick", value = "Kick a member out of the server.", inline = False)
