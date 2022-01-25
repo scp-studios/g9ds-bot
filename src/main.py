@@ -154,9 +154,8 @@ async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
     embed = discord.Embed(title = f"{guy.display_name}'s IP")
     embed.add_field(name='IP:', value=f"**{d1}.{d2}.{d3}.{d4}**", inline = False)
     embed.add_field(name = "Geological Location:", value = "*Ontario, Canada*", inline = False)
-    embed.add_field(name = "Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
+    embed.add_field(name = "Coordinates:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.add_field(name = "Postal Code:", value = "*[UPGRADE TO VIEW]*", inline = False)
-    embed.add_field(name = "Geological Location:", value = "*[UPGRADE TO VIEW]*", inline = False)
     embed.set_footer(text = "powered by grabify API (real this time)")
     await msg.edit(embed=embed)
 
