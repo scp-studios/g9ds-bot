@@ -159,7 +159,10 @@ async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
     await msg.edit(embed=embed)
 
 @bot.command(name = "tokengrab")
-async def token(ctx, guy: discord.Member):
+async def token(ctx, guy: discord.Member = None):
+    if guy == None:
+        guy = ctx.author
+
     random.seed(guy.id)
     d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
     d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
