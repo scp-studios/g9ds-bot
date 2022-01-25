@@ -2,7 +2,7 @@ import { SlashCommandBuilder, SlashCommandMentionableOption, SlashCommandStringO
 import { REST } from "@discordjs/rest"
 import { RESTPostAPIApplicationCommandsJSONBody, Routes } from "discord-api-types/v9"
 
-export function deployGuildCommands(guildID: string, botID: string, botToken: string) {
+function deployGuildCommands(guildID: string, botID: string, botToken: string) {
     const rest: REST = new REST({ version: "9" })
     rest.setToken(botToken)
     
@@ -69,4 +69,8 @@ export function deployGuildCommands(guildID: string, botID: string, botToken: st
     }).catch(() => {
         console.error("[ERROR]: Failed to register commands.")
     })
+}
+
+export default {
+    deployGuildCommands
 }
