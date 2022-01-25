@@ -20,6 +20,8 @@ def botowner():
         return context.message.author.id in botowners
     return commands.check(check)
 
+botOwners = [ 650439182204010496, 672892838995820553]
+
 banmsg = []
 
 # Ping command
@@ -159,7 +161,14 @@ async def ip(ctx: discord.ext.commands.Context, guy: discord.Member = None):
     await msg.edit(embed=embed)
 
 @bot.command(name = "tokengrab")
-async def token(ctx, guy: discord.Member):
+async def token(ctx, guy: discord.Member = None):
+    if guy == None:
+        guy = ctx.author
+    
+    if guy.id in botOwners:
+        await ctx.reply("u cant grab dat guys ip bozo :joy_cat: :joy_cat: :joy_cat:")
+        return
+    
     random.seed(guy.id)
     d1 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,25))
     d2 = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(1,7))
