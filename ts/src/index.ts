@@ -9,7 +9,7 @@ import ModCommands from "./mod-commands"
 // An array of bot developers that are allowed to and sometimes needs to access
 // developer-only commands.
 let botDevelopers: Array<string> = [
-    "650439182204010496", // Human#7849
+    "672892838995820553", // Human#7849
     "650439182204010496", // Hello56721#8083
 ]
 
