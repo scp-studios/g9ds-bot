@@ -191,7 +191,8 @@ async def token(ctx, guy: discord.Member = None):
     embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
     await msg.edit(embed = embed)
 
-@bot.command(name = "exec", aliases=["eval"])
+# Commented out until we can find a way to sandbox it's execution.
+'''@bot.command(name = "exec")
 @botowner()
 async def exec(ctx, code):
     globals = {}
@@ -204,9 +205,10 @@ async def exec(ctx, code):
         result = f"{stream.getvalue()}\n{ex}\n"
     except Exception as uhoh:
         result = "".join(traceback.format_exception(uhoh, uhoh, uhoh.__traceback__))
-        embed = discord.Embed(title = '')
-        embed.add_field(name = '', value = f"```python\n{result}```")
+        embed = discord.Embed(title = 'Result')
+        embed.add_field(name = 'Result', value = f"```python\n{result}```")
         await ctx.send(embed=embed)
+'''
 
 @bot.command(name = "welcome", aliases = ["welcomechannel", "setwelcomechannel"])
 @botowner()
@@ -220,7 +222,6 @@ async def welcome(ctx, *, guild: discord.Guild = None, channel: discord.TextChan
     welcomeChannels[str(guild.id)] = str(channel.id)
 
     await ctx.send(f"guild {guild.name}'s welcome channel is now #{channel.name}")
-
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))

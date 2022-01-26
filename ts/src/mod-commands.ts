@@ -1,16 +1,12 @@
-import { 
-    CommandInteraction,
-    GuildMember,
-    Permissions
-} from "discord.js";
+import Discord from "discord.js"
 
-export function kick(interaction: CommandInteraction) {
-    if (!(interaction.memberPermissions?.has(Permissions.FLAGS.KICK_MEMBERS))) {
+function kick(interaction: Discord.CommandInteraction) {
+    if (!(interaction.memberPermissions?.has(Discord.Permissions.FLAGS.KICK_MEMBERS))) {
         interaction.reply("u dont have kick permissions bozo :joy_cat: :joy_cat: :joy_cat:")
         return;
     }
     
-    const member: GuildMember  = interaction.options.getMentionable("member", true) as GuildMember
+    const member: Discord.GuildMember  = interaction.options.getMentionable("member", true) as Discord.GuildMember
     const reason: string = interaction.options.getString("reason", false) as string
     
     member.kick(reason).then(() => {
@@ -20,13 +16,13 @@ export function kick(interaction: CommandInteraction) {
     })
 }
 
-export function ban(interaction: CommandInteraction) {
-    if (!(interaction.memberPermissions?.has(Permissions.FLAGS.BAN_MEMBERS))) {
+function ban(interaction: Discord.CommandInteraction) {
+    if (!(interaction.memberPermissions?.has(Discord.Permissions.FLAGS.BAN_MEMBERS))) {
         interaction.reply("u dont have kick permissions bozo :joy_cat: :joy_cat: :joy_cat:")
         return;
     }
     
-    const member: GuildMember  = interaction.options.getMentionable("member", true) as GuildMember
+    const member: Discord.GuildMember  = interaction.options.getMentionable("member", true) as Discord.GuildMember
     const reason: string = interaction.options.getString("reason", false) as string
     
     member.ban({ reason: reason }).then(() => {
@@ -34,4 +30,24 @@ export function ban(interaction: CommandInteraction) {
     }).catch((error) => {
         interaction.reply({ content: `Failed to ban ${member}: ${error}`, ephemeral: true })
     })
+}
+
+function unban(interaction: Discord.CommandInteraction) {
+    if (!(interaction.memberPermissions?.has(Discord.Permissions.FLAGS.BAN_MEMBERS))) {
+        interaction.reply("u cant unban dummy :joy_cat: :joy_cat: :joy_cat:")
+        return;
+    }
+    
+    const member: Discord.GuildMember = interaction.options.getMentionable("member", true) as Discord.GuildMember
+    const reason: string = interaction.options.getString("reason", false) as string
+    
+    interaction.guild?.members.unban(member, reason).then((member) => {
+        interaction.reply({ content: `Sucessfully unbanned ${member}.`, ephemeral: true })
+    }).catch((error) => {
+        interaction.reply({ content: `Failed to unban ${member}: ${error}` })
+    })
+}
+
+export default {
+    kick, ban, unban
 }
