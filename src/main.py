@@ -120,7 +120,7 @@ async def help(ctx: discord.ext.commands.Context):
 async def info(ctx):
     embed = discord.Embed(title = "G9DS Bot Info")
     embed.add_field(name = "", value = f"Bot has been running since <t:{since}:R>")
-    await ctx.send()
+    await ctx.send(embed=embed)
 
 """ not sure if this works, but if it does it'll be super slow. im looking for something else in the api reference
 @bot.command(name="mute", aliases=["shut"])
