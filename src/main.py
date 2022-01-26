@@ -8,11 +8,14 @@ import welcome
 import random
 import time
 import string
+import math
 
+'''
 import io
 import contextlib
 import textwrap
 import traceback
+'''
 
 intents = discord.Intents(guilds=True, members=True, bans=True, emojis=True, voice_states=True, messages=True, reactions=True)
 allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
@@ -30,6 +33,8 @@ welcomeChannels = {
 }
 
 banmsg = []
+
+since = 0
 
 # Ping command
 @bot.command(name="ping", aliases=["latency"])
@@ -110,6 +115,12 @@ async def help(ctx: discord.ext.commands.Context):
     
     embed.set_footer(text="Made by Hello56721#8083 and Human#7849. The source code is free and open sourced, available under the MIT License at https://github.com/scp-studios/g9ds-bot.")
     await ctx.send(embed=embed)
+
+@bot.command(name = "info", aliases = ["botinfo"])
+async def info(ctx):
+    embed = discord.Embed(title = "G9DS Bot Info")
+    embed.add_field(name = "", value = f"Bot has been running since <t:{since}:R>")
+    await ctx.send()
 
 """ not sure if this works, but if it does it'll be super slow. im looking for something else in the api reference
 @bot.command(name="mute", aliases=["shut"])
@@ -224,6 +235,8 @@ async def welcome(ctx, *, guild: discord.Guild = None, channel: discord.TextChan
     await ctx.send(f"guild {guild.name}'s welcome channel is now #{channel.name}")
 @bot.event
 async def on_ready():
+    global since
+    since = math.floor(time.time())
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you"))
     print(f'[{str(time.strftime("%H:%M:%S", time.localtime()))}] Bot is now running woo.')
 
