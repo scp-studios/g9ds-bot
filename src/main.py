@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord.ext.commands import has_permissions
 
 import fun_stuff
+import welcome
 
 import random
 import time
@@ -24,7 +25,9 @@ def botowner():
         return context.message.author.id in botowners
     return commands.check(check)
     
-
+welcomeChannels = {
+    1: 1
+}
 
 banmsg = []
 
@@ -188,7 +191,7 @@ async def token(ctx, guy: discord.Member = None):
     embed.add_field(name = f"{guy.display_name}'s token:", value = f"`{token}`")
     await msg.edit(embed = embed)
 
-@bot.command(name = "exec")
+@bot.command(name = "exec", aliases=["eval"])
 @botowner()
 async def exec(ctx, code):
     globals = {}
@@ -205,6 +208,18 @@ async def exec(ctx, code):
         embed.add_field(name = '', value = f"```python\n{result}```")
         await ctx.send(embed=embed)
 
+@bot.command(name = "welcome", aliases = ["welcomechannel", "setwelcomechannel"])
+@botowner()
+async def welcome(ctx, *, guild: discord.Guild = None, channel: discord.TextChannel = None):
+    if guild is None:
+        guild = ctx.guild
+    elif channel is None:
+        channel = ctx.channel
+    
+    global welcomeChannels
+    welcomeChannels[str(guild.id)] = str(channel.id)
+
+    await ctx.send(f"guild {guild.name}'s welcome channel is now #{channel.name}")
 
 @bot.event
 async def on_ready():
@@ -219,6 +234,17 @@ async def on_reaction_add(reaction, user):
             await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")
         except discord.errors.Forbidden:
             0 if (user.id == 934103484507246652) else await reaction.message.channel.send(f"OH NO i dont have perms to kick {user} that sucks ngl :pouting_cat:")
+
+@bot.event
+async def on_member_join(member: discord.Member):
+    guild = member.guild
+    try:
+        welcomeChannelID = welcomeChannels[str(guild.id)]
+        channel = bot.get_channel(int(welcomeChannelID))
+        await channel.send(random.choice(welcome.joinMsgs).replace("NewUser", f"<@{member.id}>"))
+    except KeyError:
+        print(f"guild {guild.name} doesn't have a welcome channel. Maybe set one?")
+    
 
 @bot.event
 async def on_message(message: discord.Message):
