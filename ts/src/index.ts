@@ -45,6 +45,28 @@ function shutdownCommandHandler(interaction: Discord.CommandInteraction) {
     }
 }
 
+// This function initializes all of the commands and stuff. It's pretty simple.
+// To avoid it being very long, I've split it into multiple files.
+function initializeCommands() {
+    let pingCommand: SlashCommandBuilder = new SlashCommandBuilder()
+    pingCommand.setName("ping")
+    pingCommand.setDescription("See the latency of the bot in milliseconds")
+    SlashCommands.addCommand(pingCommand, pingCommandHandler)
+    
+    let shutdownCommand: SlashCommandBuilder = new SlashCommandBuilder()
+    shutdownCommand.setName("shutdown")
+    shutdownCommand.setDescription("Shuts down the bot")
+    SlashCommands.addCommand(shutdownCommand, shutdownCommandHandler)
+    
+    // Now add the commands from the other files
+    ModCommands.initializeCommands()
+    
+    // Since the bot is currently in development, we're only going to be deploying
+    // to our test server. However, once the bot gets it's place in the real
+    // G9DS, we will deploy the commands to that server as well.
+    SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", Token.token)
+}
+
 // JavaScript doesn't really need a main function, and we end up calling it at
 // the end of the day anyways. However, I kind of wanted this codebase to be a
 // little bit more organized, which is why I created a main function anyways.
@@ -59,22 +81,7 @@ function main() {
         Discord.Intents.FLAGS.GUILD_MEMBERS,
     ]})
     
-    let pingCommand: SlashCommandBuilder = new SlashCommandBuilder()
-    pingCommand.setName("ping")
-    pingCommand.setDescription("See the latency of the bot in milliseconds")
-    SlashCommands.addCommand(pingCommand, pingCommandHandler)
-    
-    let shutdownCommand: SlashCommandBuilder = new SlashCommandBuilder()
-    shutdownCommand.setName("shutdown")
-    shutdownCommand.setDescription("Shuts down the bot")
-    SlashCommands.addCommand(shutdownCommand, shutdownCommandHandler)
-    
-    // I will add the rest later.
-    
-    // Since the bot is currently in development, we're only going to be deploying
-    // to our test server. However, once the bot gets it's place in the real
-    // G9DS, we will deploy the commands to that server as well.
-    SlashCommands.deployGuildCommands("934115241036505118", "934103484507246652", Token.token)
+    initializeCommands()
     
     bot.once("ready", onReady)
     bot.on("interactionCreate", onInteractionCreate)

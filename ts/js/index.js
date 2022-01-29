@@ -7,8 +7,9 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const builders_1 = require("@discordjs/builders");
 const token_json_1 = __importDefault(require("./token.json"));
 const slash_commands_1 = __importDefault(require("./slash-commands"));
+const mod_commands_1 = __importDefault(require("./mod-commands"));
 let botDevelopers = [
-    "650439182204010496",
+    "672892838995820553",
     "650439182204010496",
 ];
 function onReady() {
@@ -31,12 +32,7 @@ function shutdownCommandHandler(interaction) {
         interaction.reply("u cant do that bozo :joy_cat: :joy_cat: :joy_cat:");
     }
 }
-function main() {
-    const bot = new discord_js_1.default.Client({ intents: [
-            discord_js_1.default.Intents.FLAGS.GUILDS,
-            discord_js_1.default.Intents.FLAGS.GUILD_MESSAGES,
-            discord_js_1.default.Intents.FLAGS.GUILD_MEMBERS,
-        ] });
+function initializeCommands() {
     let pingCommand = new builders_1.SlashCommandBuilder();
     pingCommand.setName("ping");
     pingCommand.setDescription("See the latency of the bot in milliseconds");
@@ -45,9 +41,19 @@ function main() {
     shutdownCommand.setName("shutdown");
     shutdownCommand.setDescription("Shuts down the bot");
     slash_commands_1.default.addCommand(shutdownCommand, shutdownCommandHandler);
+    mod_commands_1.default.initializeCommands();
     slash_commands_1.default.deployGuildCommands("934115241036505118", "934103484507246652", token_json_1.default.token);
+}
+function main() {
+    const bot = new discord_js_1.default.Client({ intents: [
+            discord_js_1.default.Intents.FLAGS.GUILDS,
+            discord_js_1.default.Intents.FLAGS.GUILD_MESSAGES,
+            discord_js_1.default.Intents.FLAGS.GUILD_MEMBERS,
+        ] });
+    initializeCommands();
     bot.once("ready", onReady);
     bot.on("interactionCreate", onInteractionCreate);
     bot.login(token_json_1.default.token);
 }
 main();
+//# sourceMappingURL=index.js.map
