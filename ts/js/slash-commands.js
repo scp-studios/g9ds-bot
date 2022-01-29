@@ -29,3 +29,4 @@ function processCommand(interaction) {
 exports.default = {
     deployGuildCommands, addCommand, processCommand
 };
+//# sourceMappingURL=slash-commands.js.map
