@@ -1,6 +1,7 @@
 import discord
 import math
 import time
+import fun_commands
 
 def register(bot):
     @bot.event
@@ -12,7 +13,7 @@ def register(bot):
     
     @bot.event
     async def on_reaction_add(reaction, user):
-        if reaction.message.id in banmsg and user != bot.user:
+        if reaction.message.id in fun_commands.banmsg and user != bot.user:
             try:
                 await user.kick(reason = "Asked for it")
                 await reaction.message.channel.send(f"{user} has been kicked! :joy_cat:")

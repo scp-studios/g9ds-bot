@@ -2,6 +2,10 @@ import discord
 import random
 import fun_utils
 import time
+import string
+import globals
+
+banmsg = []
 
 def register(bot):
     @bot.command(name = "reactkick")

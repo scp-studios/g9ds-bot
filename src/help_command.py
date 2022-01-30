@@ -1,3 +1,6 @@
+import discord
+import random
+
 def register(bot):
     @bot.command(name="help", aliases=["commands"])
     async def help(ctx: discord.ext.commands.Context):

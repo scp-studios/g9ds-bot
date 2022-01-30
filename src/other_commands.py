@@ -1,3 +1,5 @@
+import discord
+
 def register(bot):
     @bot.command(name = "welcome", aliases = ["welcomechannel", "setwelcomechannel"])
     # I would like some comments on this

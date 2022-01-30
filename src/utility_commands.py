@@ -1,6 +1,5 @@
 def register(bot):
     @bot.command(name = "shutdown", aliases = ["kill"])
-    @botowner()
     async def shutdown(context):
         await context.reply("Shutting down...")
         await context.bot.close()
